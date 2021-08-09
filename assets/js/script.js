@@ -2,6 +2,7 @@ const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 
+
 //define searched cities array
 let searchedCities = [];
 
@@ -21,44 +22,58 @@ const saveSearch = function(search) {
     }
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
-    }
-    //sets array to local storage
 
-    let firstCapital = search.substring(0,1).toUpperCase() + search.substring(1);
-    //sets searchValue element to empty 
-    localStorage.setItem("searches", JSON.stringify(searchedCities));
-    searchValue.value ="";
-    
-    console.log(firstCapital)
-    console.log(city);
+let cityInput = document.querySelector('#search');
+let userInput = document.querySelector('#userInput');
+
+// prevent default, reset input box, alert if input empty
+let reset = function(event) {
+    event.preventDefault();
+    let cityName = cityInput.value.trim();
+    if (cityName) {
+      getLatLong(cityName);
+      cityInput.textContent = '';
+      cityInput.value = '';
+    } else {
+      alert('Please enter a city.');
+    }
 };
 
 //function gets information from api and calls render function to display elements
-// const getTrails = function(lat, lon, city) {
-// fetch("https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=-87.629799&lat=41.878113&radius=25", {
-// 	"method": "GET",
-// 	"headers": {
-// 		"x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
-// 		"x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
-// 	}
-// })
-// .then(response => {
-// 	if (response.ok) {
-//         response.json().then(function(data) {
-//             console.log(data);
-//             // console.log(data.data[0].name);
-//             renderTrails(data);
-//             saveSearch(city)
-//         })
-//     } else {
-//         alert("Error: Could not find results");
-//     }
-// })
-// .catch(err => {
-// 	console.error(err);
-    
-// })
-// };
+let getLatLong = function(cityName) {
+    let weatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=65e4e58787a7fd23ec32767cf0dce3ec';
+    fetch(weatherAPI).then(function(response) {
+        if (response.ok) {
+          response.json().then(function(data) {
+            console.log(data);
+            var latBoi = (data).city.coord.lat;
+            var lonBoi = (data).city.coord.lon;
+            fetch(`https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=${lonBoi}&lat=${latBoi}&radius=25`, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-key": "53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c",
+                    "x-rapidapi-host": "trailapi-trailapi.p.rapidapi.com"
+                }
+            }).then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return Promise.reject(response);
+                }
+            }).then(function (Data) {
+                console.log(Data);
+                renderTrails(Data);
+            }).catch(function (error) {
+                console.warn(error);
+            });
+        })
+        } else {
+        alert("There was a problem with your request!");
+        }
+    }).catch(function(error) {
+        alert('Unable to connect to openweathermap.org.');
+        })
+}
 
 //function renders api information to the page
 const renderTrails = function(results) {
@@ -86,13 +101,13 @@ for(i = 0; i < 5; i++) {
         trailRating = results.data[i].rating;
     }
     console.log(trailRating);
-
 };
 
-};
-//this will get deleted once user input is added
-// getTrails()
+
 
 //user input
-searchBtn.addEventListener('click', searchHandler);
+userInput.addEventListener('submit', reset);
+
+
+
 
