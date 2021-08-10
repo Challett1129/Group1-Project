@@ -1,9 +1,9 @@
 const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
-
 const cityInput = document.querySelector('#search');
 const userInput = document.querySelector('#userInput');
+
 //define searched cities array
 let searchedCities = [];
 
@@ -70,8 +70,7 @@ let getLatLong = function(cityName) {
                 }
             }).then(function (Data) {
                 console.log(Data);
-                renderTrails(Data);
-                saveSearch(cityName);
+                renderTrails(Data,cityName);
             }).catch(function (error) {
                 console.warn(error);
             });
@@ -88,7 +87,8 @@ let getLatLong = function(cityName) {
 
 
 //function renders api information to the page
-const renderTrails = function(results) {
+const renderTrails = function(results, cityName) {
+    saveSearch(cityName);
     for(i = 0; i < 5; i++) {
         //variable to find park name
         let trailName = results.data[i].name;
