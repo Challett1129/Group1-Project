@@ -189,6 +189,7 @@ const renderTrails = function(results, cityName) {
 
         //creates a container to  store all of the trail's individual information
         let trailContainer = document.createElement("div");
+        trailContainer.setAttribute('class', 'trailcontain');
         
 
         //appends those trails to the page's container
