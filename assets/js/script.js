@@ -2,7 +2,7 @@ const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 
-let cityInput = document.querySelector('#search');
+const cityInput = document.querySelector('#search');
 const userInput = document.querySelector('#userInput');
 //define searched cities array
 let searchedCities = [];
