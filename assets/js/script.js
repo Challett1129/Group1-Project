@@ -144,6 +144,8 @@ const renderTrails = function(results, cityName) {
         //variable to find park name
         let trailName = document.createElement("div");
         trailName.textContent = results.data[i].name;
+        trailName.setAttribute('class', 'b');
+       
         console.log(trailName);
 
         //variable to find park url
@@ -179,9 +181,11 @@ const renderTrails = function(results, cityName) {
         //creates a div to hold trail's difficulty 
         let trailDifficulty = document.createElement("div"); 
         trailDifficulty.textContent = results.data[i].difficulty;
+        
 
         //creates a container to  store all of the trail's individual information
         let trailContainer = document.createElement("div");
+        
 
         //appends those trails to the page's container
         trailContainer.append(trailName, trailUrl, trailLength, trailDifficulty, trailRatingContainer);
