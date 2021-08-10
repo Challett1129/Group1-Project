@@ -7,10 +7,7 @@ const userInput = document.querySelector('#userInput');
 //define searched cities array
 let searchedCities = [];
 
-//variable to define the searchedCities array from local storage
-if(localStorage.getItem("searches")){
-    searchedCities = JSON.parse(localStorage.getItem("searches"));
-}
+
 
 //variable to define the searchedCities array from local storage
 if(localStorage.getItem("searches")){
@@ -27,12 +24,18 @@ const saveSearch = function(search) {
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
     }
-    console.log(searchedCities);
+    
     localStorage.setItem("searches", JSON.stringify(searchedCities));
 
-    let firstCapital = search.substring(0, 1).toUpperCase() + search.substring(1);
+    firstCapital = search.substring(0,1).toUpperCase() + search.substring(1);
     console.log(firstCapital);
-};
+}
+    
+
+//variable to define the searchedCities array from local storage
+if(localStorage.getItem("searches")){
+    searchedCities = JSON.parse(localStorage.getItem("searches"));
+}
 
 // prevent default, reset input box, alert if input empty
 let reset = function(event) {
@@ -81,10 +84,7 @@ let getLatLong = function(cityName) {
     }).catch(function(error) {
         alert('Unable to connect to openweathermap.org.');
         })
-
 }
-
-
 
 //function renders api information to the page
 const renderTrails = function(results, cityName) {
@@ -118,3 +118,4 @@ const renderTrails = function(results, cityName) {
 
 //user input
 userInput.addEventListener('submit', reset);
+
