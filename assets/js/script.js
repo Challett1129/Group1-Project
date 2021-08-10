@@ -1,9 +1,11 @@
+//global variables for dom manipulation
 const searchValue = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 const cityInput = document.querySelector('#search');
 const userInput = document.querySelector('#userInput');
 const cityList = document.querySelector("#cityList");
+
 //define searched cities array
 let searchedCities = [];
 
@@ -116,7 +118,7 @@ const renderTrails = function(results, cityName) {
     }
 };
 
-
+//creates buttons from strings in savedSearches array 
 const renderSearches = function() {
     cityList.innerHTML = "";
     for(i = 0; i < searchedCities.length; i++) {
@@ -128,9 +130,14 @@ const renderSearches = function() {
 
     }
 }
+
+//function to add to the recentSearches buttons
 const searchByBtn = function(){
-        getLatLong(this.textContent);
+    //calls function to get trail data     
+    getLatLong(this.textContent);
 }
+
+//always prints out savedSearches to page
 renderSearches();
 //user input
 userInput.addEventListener('submit', reset);
