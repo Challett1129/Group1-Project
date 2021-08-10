@@ -3,7 +3,7 @@ const searchBtn = document.querySelector("#searchBtn");
 const mainBody = document.querySelector("#main");
 const cityInput = document.querySelector('#search');
 const userInput = document.querySelector('#userInput');
-
+const cityList = document.querySelector("#cityList");
 //define searched cities array
 let searchedCities = [];
 
@@ -18,17 +18,17 @@ if(localStorage.getItem("searches")){
 const saveSearch = function(search) {
     //takes value of searched item and adds it to array if not a duplicate
     search = search.toLowerCase();
-    if(searchedCities.length == 10) {
-        searchedCities.splice(0, 1)
-    }
     if(searchedCities.includes(search) == false) {
         searchedCities.push(search);
+    }
+    if(searchedCities.length == 5) {
+        searchedCities.splice(0, 1);
     }
     
     localStorage.setItem("searches", JSON.stringify(searchedCities));
 
     firstCapital = search.substring(0,1).toUpperCase() + search.substring(1);
-    console.log(firstCapital);
+    renderSearches();
 }
     
 
@@ -56,7 +56,7 @@ let getLatLong = function(cityName) {
     fetch(weatherAPI).then(function(response) {
         if (response.ok) {
           response.json().then(function(data) {
-            console.log(data);
+            // console.log(data);
             var latBoi = (data).city.coord.lat;
             var lonBoi = (data).city.coord.lon;
             fetch(`https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=${lonBoi}&lat=${latBoi}&radius=25`, {
@@ -72,8 +72,9 @@ let getLatLong = function(cityName) {
                     return Promise.reject(response);
                 }
             }).then(function (Data) {
-                console.log(Data);
+                // console.log(Data);
                 renderTrails(Data,cityName);
+                saveSearch(cityName);
             }).catch(function (error) {
                 console.warn(error);
             });
@@ -88,7 +89,6 @@ let getLatLong = function(cityName) {
 
 //function renders api information to the page
 const renderTrails = function(results, cityName) {
-    saveSearch(cityName);
     for(i = 0; i < 5; i++) {
         //variable to find park name
         let trailName = results.data[i].name;
@@ -96,15 +96,15 @@ const renderTrails = function(results, cityName) {
 
         //variable to find park url
         let trailUrl = results.data[i].url;
-        console.log(trailUrl);
+        // console.log(trailUrl);
 
         //variable to find park length
         let trailLength = Math.round(results.data[i].length) + " miles"
-        console.log(trailLength);
+        // console.log(trailLength);
 
         //variable to find park region
         let trailRegion = results.data[i].region;
-        console.log(trailRegion);
+        // console.log(trailRegion);
 
         //variable to find park rating
         if(results.data[i].rating === 0) {
@@ -116,6 +116,22 @@ const renderTrails = function(results, cityName) {
     }
 };
 
+
+const renderSearches = function() {
+    cityList.innerHTML = "";
+    for(i = 0; i < searchedCities.length; i++) {
+        let listContent = document.createElement("button");
+        let city = searchedCities[i].substring(0,1).toUpperCase() + searchedCities[i].substring(1);
+        listContent.textContent = city;
+        listContent.addEventListener('click', searchByBtn);
+        cityList.append(listContent);
+
+    }
+}
+const searchByBtn = function(){
+        getLatLong(this.textContent);
+}
+renderSearches();
 //user input
 userInput.addEventListener('submit', reset);
 
