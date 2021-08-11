@@ -8,6 +8,7 @@ const cityList = document.querySelector("#cityList");
 const trailEl = document.querySelector("#trails");
 const resultsTitle = document.querySelector("#resultsTitle");
 const errorEl = document.querySelector("#error");
+
 //define searched cities array
 let searchedCities = [];
 
@@ -224,7 +225,7 @@ const renderSearches = function() {
 const searchByBtn = function(){
     //calls function to get trail data     
     getLatLong(this.textContent);
-
+}
 
 //always prints out savedSearches to page
 renderSearches();
