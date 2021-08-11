@@ -162,7 +162,7 @@ const renderTrails = function(results, cityName) {
 
         //variable to find park region
         // let trailRegion = document.createElement("div")
-        // trailRegion.textContent = results.data[i].region;
+        // trailRegion.textContent = regit sults.data[i].region;
         // console.log(trailRegion);
 
         //variable to find park rating
