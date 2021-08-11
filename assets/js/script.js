@@ -125,14 +125,6 @@ let getTrails = function(lonBoi, latBoi, cityName) {
                     document.getElementById("error").textContent = "RapidAPI.com could not locate the requested data."
                     return Promise.reject(response);
                 }
-
-            }).then(function (Data) {
-                console.log(Data);
-                renderTrails(Data);
-                saveSearch(cityName);
-            }).catch(function (error) {
-                console.warn(error);
-
             }).then(function (data) {
                 console.log(data);
                 renderTrails(data, cityName);
