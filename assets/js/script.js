@@ -7,6 +7,7 @@ const userInput = document.querySelector('#userInput');
 const cityList = document.querySelector("#cityList");
 const trailEl = document.querySelector("#trails");
 const resultsTitle = document.querySelector("#resultsTitle");
+const errorEl = document.querySelector("#error");
 //define searched cities array
 let searchedCities = [];
 
@@ -46,10 +47,10 @@ let reset = function(event) {
     let cityName = cityInput.value.trim();
     if (cityName) {
       getLatLong(cityName);
-      cityInput.textContent = '';
+      errorEl.textContent = ""
       cityInput.value = '';
     } else {
-      alert('Please enter a city.');
+       errorEl.textContent = "Please enter a city";
     }
 };
 
