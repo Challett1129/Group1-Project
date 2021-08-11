@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hike With Me?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/normalize.css" />
     <link rel="stylesheet" href="./assets/css/skeleton.css" />
 </head>
@@ -21,8 +22,12 @@
             <form id="userInput">
                 <input type="text" placeholder="Austin" name="cities" id="search" /> 
                 <button class="button-primary" id="searchBtn" type="buttton">Lets Hike!</button>
+                <div id="error"></div>
             </form>
+            <div id="cityList"></div>
         </div>
+        <h4 id="resultsTitle"></h4>
+        <div id="trails"></div>
     </div>
     <div id="error"></div>
     <script src="./assets/js/script.js"></script>
