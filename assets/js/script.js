@@ -7,7 +7,6 @@ const userInput = document.querySelector('#userInput');
 const cityList = document.querySelector("#cityList");
 const trailEl = document.querySelector("#trails");
 const resultsTitle = document.querySelector("#resultsTitle");
-
 //define searched cities array
 let searchedCities = [];
 
@@ -125,14 +124,6 @@ let getTrails = function(lonBoi, latBoi, cityName) {
                     document.getElementById("error").textContent = "RapidAPI.com could not locate the requested data."
                     return Promise.reject(response);
                 }
-
-            }).then(function (Data) {
-                console.log(Data);
-                renderTrails(Data);
-                saveSearch(cityName);
-            }).catch(function (error) {
-                console.warn(error);
-
             }).then(function (data) {
                 console.log(data);
                 renderTrails(data, cityName);
@@ -140,17 +131,14 @@ let getTrails = function(lonBoi, latBoi, cityName) {
             }).catch(function(error) {
                 document.getElementById("error").textContent = ('Unable to connect to RapidAPI.com.');
                 console.log(error);
-
             });
 };
 
 //function renders api information to the page
 const renderTrails = function(results, cityName) {
-
     trailEl.innerHTML = "";
 
     resultsTitle.textContent = "Results for :  " + cityName + ", " + results.data[i].region;
-
 
     for(i = 0; i < 5; i++) {
         //variable to find park name
