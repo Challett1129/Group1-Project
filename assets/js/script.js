@@ -7,7 +7,7 @@ const userInput = document.querySelector('#userInput');
 const cityList = document.querySelector("#cityList");
 const trailEl = document.querySelector("#trails");
 const resultsTitle = document.querySelector("#resultsTitle");
-
+const errorEl = document.querySelector("#error");
 //define searched cities array
 let searchedCities = [];
 
@@ -47,10 +47,10 @@ let reset = function(event) {
     let cityName = cityInput.value.trim();
     if (cityName) {
       getLatLong(cityName);
-      cityInput.textContent = '';
+      errorEl.textContent = ""
       cityInput.value = '';
     } else {
-      alert('Please enter a city.');
+       errorEl.textContent = "Please enter a city";
     }
 };
 
@@ -132,17 +132,14 @@ let getTrails = function(lonBoi, latBoi, cityName) {
             }).catch(function(error) {
                 document.getElementById("error").textContent = ('Unable to connect to RapidAPI.com.');
                 console.log(error);
-
             });
 };
 
 //function renders api information to the page
 const renderTrails = function(results, cityName) {
-
     trailEl.innerHTML = "";
 
     resultsTitle.textContent = "Results for :  " + cityName + ", " + results.data[i].region;
-
 
     for(i = 0; i < 5; i++) {
         //variable to find park name
@@ -166,7 +163,7 @@ const renderTrails = function(results, cityName) {
 
         //variable to find park region
         // let trailRegion = document.createElement("div")
-        // trailRegion.textContent = results.data[i].region;
+        // trailRegion.textContent = regit sults.data[i].region;
         // console.log(trailRegion);
 
         //variable to find park rating
@@ -188,7 +185,7 @@ const renderTrails = function(results, cityName) {
         let trailContainer = document.createElement("div");
 
         //appends those trails to the page's container
-        trailContainer.append(trailName, trailUrl, trailLength, trailDifficulty, trailRatingContainer);
+        trailContainer.append(trailName, trailLength, trailDifficulty, trailRatingContainer, trailUrl);
         console.log(trailContainer);
         trailEl.append(trailContainer);
     }
