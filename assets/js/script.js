@@ -224,7 +224,7 @@ const renderSearches = function() {
 const searchByBtn = function(){
     //calls function to get trail data     
     getLatLong(this.textContent);
-
+}
 
 //always prints out savedSearches to page
 renderSearches();
