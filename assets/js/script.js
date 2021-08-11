@@ -145,6 +145,9 @@ const renderTrails = function(results, cityName) {
         //variable to find park name
         let trailName = document.createElement("div");
         trailName.textContent = results.data[i].name;
+        trailName.setAttribute('class', 'trailtitle');
+        // This also works: trailName.className += 'b';
+       
         console.log(trailName);
 
         //variable to find park url
@@ -159,6 +162,7 @@ const renderTrails = function(results, cityName) {
         //variable to find park length
         let trailLength = document.createElement("div");
         trailLength.textContent = Math.round(results.data[i].length) + " miles";
+        trailLength.setAttribute('class', 'traillength');
         // console.log(trailLength);
 
         //variable to find park region
@@ -169,6 +173,7 @@ const renderTrails = function(results, cityName) {
         //variable to find park rating
         let trailRatingContainer = document.createElement("div");
         let trailRating = Math.round(results.data[i].rating);
+        trailRatingContainer.setAttribute('class', 'trailrating');
         if(trailRating === "" || trailRating === 0){
             trailRatingContainer.textContent = "No rating found"; 
         } else {
@@ -180,9 +185,13 @@ const renderTrails = function(results, cityName) {
         //creates a div to hold trail's difficulty 
         let trailDifficulty = document.createElement("div"); 
         trailDifficulty.textContent = results.data[i].difficulty;
+        trailDifficulty.setAttribute('class', 'traildifficulty');
+        
 
         //creates a container to  store all of the trail's individual information
         let trailContainer = document.createElement("div");
+        trailContainer.setAttribute('class', 'trailcontain');
+        
 
         //appends those trails to the page's container
         trailContainer.append(trailName, trailLength, trailDifficulty, trailRatingContainer, trailUrl);
