@@ -41,6 +41,7 @@ if(localStorage.getItem("searches")){
     searchedCities = JSON.parse(localStorage.getItem("searches"));
 }
 
+
 // prevent default, reset input box, alert if input empty
 let reset = function(event) {
     event.preventDefault();
@@ -91,6 +92,7 @@ let reset = function(event) {
 //         })
 // }
 
+
 // geocode city name via openweather API
 let getLatLong = function(cityName) {
     let weatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=65e4e58787a7fd23ec32767cf0dce3ec';
@@ -101,6 +103,7 @@ let getLatLong = function(cityName) {
             var latBoi = (data).city.coord.lat;
             var lonBoi = (data).city.coord.lon;
             getTrails(lonBoi, latBoi, cityName);
+
             })
         } else {
             document.getElementById("error").textContent = "OpenWeatherMap.org could not find that city."
@@ -111,7 +114,9 @@ let getLatLong = function(cityName) {
 }
 
 // pass geocoded data into trail API
+
 let getTrails = function(lonBoi, latBoi, cityName) {
+
             fetch(`https://trailapi-trailapi.p.rapidapi.com/trails/explore/?lon=${lonBoi}&lat=${latBoi}&radius=25`, {
                 "method": "GET",
                 "headers": {
@@ -134,6 +139,7 @@ let getTrails = function(lonBoi, latBoi, cityName) {
                 console.log(error);
             });
 };
+
 
 //function renders api information to the page
 const renderTrails = function(results, cityName) {
@@ -218,10 +224,14 @@ const renderSearches = function() {
 const searchByBtn = function(){
     //calls function to get trail data     
     getLatLong(this.textContent);
-}
+
 
 //always prints out savedSearches to page
 renderSearches();
 //user input
 userInput.addEventListener('submit', reset);
 
+/*
+open weather API key: appid=65e4e58787a7fd23ec32767cf0dce3ec
+rapid API key: 53bb73ef70msh2c586d23ef2e24cp1e49c1jsn9741f86cc83c
+*/
