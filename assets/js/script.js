@@ -184,7 +184,7 @@ const renderTrails = function(results, cityName) {
         let trailContainer = document.createElement("div");
 
         //appends those trails to the page's container
-        trailContainer.append(trailName, trailUrl, trailLength, trailDifficulty, trailRatingContainer);
+        trailContainer.append(trailName, trailLength, trailDifficulty, trailRatingContainer, trailUrl);
         console.log(trailContainer);
         trailEl.append(trailContainer);
     }
